@@ -676,6 +676,9 @@ npm run start
 - **Caching**: Automatic static optimization
 - **Lazy Loading**: Component and route lazy loading
 
+### Testnet Contract Address
+ST273X4P37MHRHQ62MS3S7DA9M8R5RABB2M5SPSZ7
+
 ---
 
 *Built with ❤️ for cooperative financial empowerment on Stacks blockchain*
