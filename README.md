@@ -679,6 +679,8 @@ npm run start
 ### Testnet Contract Address
 ST273X4P37MHRHQ62MS3S7DA9M8R5RABB2M5SPSZ7
 
+Some of the smart contract are not fully deployed as there is problem with the code
+
 ---
 
 *Built with ❤️ for cooperative financial empowerment on Stacks blockchain*
