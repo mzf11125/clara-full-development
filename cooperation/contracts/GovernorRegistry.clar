@@ -1,8 +1,9 @@
 ;; Governor Registry Contract
 ;; Manages addresses of all cooperation contracts and provides centralized configuration
+;; (clarity-version 2)
 
 ;; Set a fixed owner (replace with your principal)
-;; (define-constant CONTRACT_OWNER 'ST1234567890ABCDEFGHIJKLMN1234567890ABCD)
+(define-constant CONTRACT_OWNER 'ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR)
 
 ;; Error constants
 (define-constant ERR_UNAUTHORIZED (err u401))
@@ -11,103 +12,106 @@
 
 ;; Contract registry
 (define-map contract-registry
-  ((contract-name (string-ascii 50)))
-  ((contract-address principal)
-   (is-active bool)
-   (deployed-at uint)
-   (version uint)))
+  {contract-name: (string-ascii 50)}
+  {contract-address: principal,
+   is-active: bool,
+   deployed-at: uint,  ;; now sequential counter instead of block-height
+   version: uint})
+
+;; Sequential deployment counter
+(define-data-var deployment-counter uint u0)
 
 ;; System configuration
 (define-data-var system-active bool true)
 (define-data-var emergency-admin (optional principal) none)
 
+;; Increment and get the next sequential number
+(define-private (get-next-counter)
+  (let (
+        (next (+ (var-get deployment-counter) u1))
+       )
+    (var-set deployment-counter next)
+    next
+  )
+)
+
 ;; Register a contract address
 (define-public (register-contract (name (string-ascii 50)) (address principal))
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_UNAUTHORIZED)
-    (asserts! (is-none (map-get? contract-registry ((contract-name name)))) ERR_ALREADY_REGISTERED)
+    (asserts! (is-none (map-get? contract-registry {contract-name: name})) ERR_ALREADY_REGISTERED)
     (map-set contract-registry
-      ((contract-name name))
-      ((contract-address address)
-       (is-active true)
-       (deployed-at block-height)
-       (version u1)))
-    (ok true)
-  )
-)
+        {contract-name: name}
+        {contract-address: address,
+         is-active: true,
+         deployed-at: (get-next-counter),
+         version: u1})
+    (ok true)))
 
 ;; Update contract address (for upgrades)
 (define-public (update-contract (name (string-ascii 50)) (address principal))
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_UNAUTHORIZED)
-    (match (map-get? contract-registry ((contract-name name)))
+    (match (map-get? contract-registry {contract-name: name})
       existing
       (begin
         (map-set contract-registry
-          ((contract-name name))
-          ((contract-address address)
-           (is-active true)
-           (deployed-at block-height)
-           (version (+ (get version existing) u1))))
+          {contract-name: name}
+          {contract-address: address,
+           is-active: true,
+           deployed-at: (get-next-counter),
+           version: (+ (get version existing) u1)})
         (ok true))
-      ERR_CONTRACT_NOT_FOUND)
-  )
-)
+      ERR_CONTRACT_NOT_FOUND)))
 
 ;; Get contract address
 (define-read-only (get-contract-address (name (string-ascii 50)))
-  (map-get? contract-registry ((contract-name name))))
+  (map-get? contract-registry {contract-name: name}))
 
 ;; Get active contract address only
 (define-read-only (get-active-contract (name (string-ascii 50)))
-  (match (map-get? contract-registry ((contract-name name)))
+  (match (map-get? contract-registry {contract-name: name})
     contract-info
     (if (get is-active contract-info)
         (some (get contract-address contract-info))
         none)
-    none)
-)
+    none))
 
 ;; Deactivate contract
 (define-public (deactivate-contract (name (string-ascii 50)))
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_UNAUTHORIZED)
-    (match (map-get? contract-registry ((contract-name name)))
+    (match (map-get? contract-registry {contract-name: name})
       existing
       (begin
         (map-set contract-registry
-          ((contract-name name))
-          ((contract-address (get contract-address existing))
-           (is-active false)
-           (deployed-at (get deployed-at existing))
-           (version (get version existing))))
+          {contract-name: name}
+          {contract-address: (get contract-address existing),
+           is-active: false,
+           deployed-at: (get deployed-at existing),
+           version: (get version existing)})
         (ok true))
-      ERR_CONTRACT_NOT_FOUND)
-  )
-)
+      ERR_CONTRACT_NOT_FOUND)))
 
 ;; Emergency functions
 (define-public (set-emergency-admin (admin principal))
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_UNAUTHORIZED)
     (var-set emergency-admin (some admin))
-    (ok true))
-)
+    (ok true)))
 
 (define-public (emergency-pause)
   (begin
     (asserts! (or (is-eq tx-sender CONTRACT_OWNER) 
                   (is-eq (some tx-sender) (var-get emergency-admin))) ERR_UNAUTHORIZED)
     (var-set system-active false)
-    (ok true))
-)
+    (ok true)))
 
 (define-public (emergency-resume)
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_UNAUTHORIZED)
     (var-set system-active true)
-    (ok true))
-)
+    (ok true)))
 
 ;; Read-only functions
 (define-read-only (is-system-active)

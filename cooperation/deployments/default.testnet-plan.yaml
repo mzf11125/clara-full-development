@@ -11,14 +11,14 @@ plan:
         - contract-publish:
             contract-name: GovernanceToken
             expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 14810
+            cost: 13500
             path: contracts/GovernanceToken.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
             contract-name: GovernorRegistry
             expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 33160
+            cost: 35260
             path: contracts/GovernorRegistry.clar
             anchor-block-only: true
             clarity-version: 3
@@ -72,38 +72,38 @@ plan:
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: KoperasiGovernor
-            expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 102570
-            path: contracts/KoperasiGovernor.clar
-            anchor-block-only: true
-            clarity-version: 3
-        - contract-publish:
             contract-name: LoanManager
             expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 117530
+            cost: 116990
             path: contracts/LoanManager.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
             contract-name: MembershipToken
             expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 116220
+            cost: 116340
             path: contracts/MembershipToken.clar
-            anchor-block-only: true
-            clarity-version: 3
-        - contract-publish:
-            contract-name: ProfitSharing
-            expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 89650
-            path: contracts/ProfitSharing.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
             contract-name: Treasury
             expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
-            cost: 9050
+            cost: 7580
             path: contracts/Treasury.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: KoperasiGovernor
+            expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
+            cost: 103840
+            path: contracts/KoperasiGovernor.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: ProfitSharing
+            expected-sender: ST2TG9G3H0WD4Q69CXZ5KW973RFX5XGHD54TGX5PR
+            cost: 90430
+            path: contracts/ProfitSharing.clar
             anchor-block-only: true
             clarity-version: 3
       epoch: "3.2"

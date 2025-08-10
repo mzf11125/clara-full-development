@@ -12,18 +12,22 @@ cache_dir = "./.cache"
 
 [contracts.Treasury]
 path = "contracts/Treasury.clar"
+
 epoch = "latest"
 
 [contracts.GovernorRegistry]
 path = "contracts/GovernorRegistry.clar"
+
 epoch = "latest"
 
 [contracts.GovernanceToken]
 path = "contracts/GovernanceToken.clar"
+
 epoch = "latest"
 
 [contracts.LoanManager]
 path = "contracts/LoanManager.clar"
+
 epoch = "latest"
 
 [contracts.KoperasiGovernor]
@@ -32,42 +36,52 @@ epoch = "latest"
 
 [contracts.MembershipToken]
 path = "contracts/MembershipToken.clar"
+
 epoch = "latest"
 
 #[contracts.MembeGovernorRegistry]
 #path = "contracts/MembershipRegistry.clar"
+
 #epoch = "latest"
 
 [contracts.ProfitSharing]
 path = "contracts/ProfitSharing.clar"
+
 epoch = "latest"
 
 [contracts.IMembershipToken]
 path = "contracts/interfaces/IMembershipToken.clar"
+
 epoch = "latest"
 
 [contracts.IGovernanceToken]
 path = "contracts/interfaces/IGovernanceToken.clar"
+
 epoch = "latest"
 
 [contracts.IGovernorRegistry]
 path = "contracts/interfaces/IGovernorRegistry.clar"
+
 epoch = "latest"
 
 [contracts.ITreasury]
 path = "contracts/interfaces/ITreasury.clar"
+
 epoch = "latest"
 
 [contracts.ILoan]
 path = "contracts/interfaces/ILoan.clar"
+
 epoch = "latest"
 
 [contracts.ILoanRegistry]
 path = "contracts/interfaces/ILoanRegistry.clar"
+
 epoch = "latest"
 
 [contracts.ILoanManager]
 path = "contracts/interfaces/ILoanManager.clar"
+
 epoch = "latest"
 
 [repl.analysis]
