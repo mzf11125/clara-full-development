@@ -1,0 +1,55 @@
+[project]
+name = "cooperation"
+description = ""
+authors = []
+telemetry = false
+cache_dir = "./.cache"
+
+# [contracts.counter]
+# path = "contracts/counter.clar"
+# epoch = "latest"
+
+
+[contracts.treasury]
+path = "contracts/treasury.clar"
+epoch = "latest"
+
+[contracts.GovernorRegistry]
+path = "contracts/GovernorRegistry.clar"
+epoch = "latest"
+
+[contracts.GovernanceToken]
+path = "contracts/GovernanceToken.clar"
+epoch = "latest"
+
+[contracts.LoanManager]
+path = "contracts/LoanManager.clar"
+epoch = "latest"
+
+[contracts.KoperasiGovernor]
+path = "contracts/KoperasiGovernor.clar"
+epoch = "latest"
+
+[contracts.MembershipToken]
+path = "contracts/MembershipToken.clar"
+epoch = "latest"
+
+#[contracts.MembeGovernorRegistry]
+#path = "contracts/MembershipRegistry.clar"
+#epoch = "latest"
+
+[contracts.ProfitSharing]
+path = "contracts/ProfitSharing.clar"
+epoch = "latest"
+
+[repl.analysis]
+passes = ["check_checker"]
+check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
+
+# Check-checker settings:
+# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
+# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
+# callee_filter: if true, untrusted data may be passed into a private function without a
+# warning, if it gets checked inside. This check will also propagate up to the
+# caller.
+# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
