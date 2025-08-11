@@ -2,7 +2,7 @@
 
 Dana Desa is a community-driven cooperative fund built on blockchain, empowering villages and local communities to manage and grow their resources transparently. Our mission is to strengthen economic independence, foster collaboration, and ensure every contribution directly benefits the people — all with the trust and openness of Web3 technology.
 
-# Koperasi DAO Smart Contracts
+## Koperasi DAO Smart Contracts
 
 A comprehensive decentralized autonomous organization (DAO) system built on Stacks blockchain for managing cooperative financial activities including membership, governance, loans, and profit sharing.
 
